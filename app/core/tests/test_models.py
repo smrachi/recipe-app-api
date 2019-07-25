@@ -3,9 +3,9 @@ from django.contrib.auth import get_user_model
 from core import models
 
 
-def sample_user(email='test@smr.com',password='testpass'):
+def sample_user(email='test@smr.com', password='testpass'):
     """Create a sample user"""
-    return get_user_model().objects.create_user(email,password)
+    return get_user_model().objects.create_user(email, password)
 
 
 class ModelTests(TestCase):
@@ -35,8 +35,7 @@ class ModelTests(TestCase):
     def test_create_new_superuser(self):
         """Test creating new superuser"""
         user = get_user_model().objects.create_superuser(
-            'mohsen@smr.com',
-            'test123',
+            'mohsen@smr.com', 'test123'
         )
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
@@ -44,7 +43,13 @@ class ModelTests(TestCase):
     def test_tag_str(self):
         """Test the tag string representation"""
         tag = models.Tag.objects.create(
-            user=sample_user(),
-            name='Vegan',
+            user=sample_user(), name='Vegan'
         )
         self.assertEqual(str(tag), tag.name)
+
+    def test_ingredient_str(self):
+        """Test the ingredient string representation"""
+        ingredient = models.Ingredient.objects.create(
+            user=sample_user(), name='Cucumber'
+        )
+        self.assertEqual(str(ingredient), ingredient.name)
